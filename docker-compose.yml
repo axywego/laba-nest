@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-nest-app-optimized:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://myuser:durak@postgres:5432/mytaskdb
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=mytaskdb
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=durak
